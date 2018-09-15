@@ -1,0 +1,66 @@
+buildscript {
+	ext {
+		springBootVersion = '2.0.5.RELEASE'
+		avroPluginVersion = '0.9.1'
+	}
+	repositories {
+		mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+	}
+
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath "com.commercehub.gradle.plugin:gradle-avro-plugin:${avroPluginVersion}"
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: "com.commercehub.gradle.plugin.avro"
+
+group = 'com.fersanp.gleidson'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+    maven {
+        url "https://packages.confluent.io/maven/"
+    }
+}
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.kafka:spring-kafka')
+    compile('org.apache.kafka:kafka-streams')
+
+    compile('org.apache.avro:avro:1.8.2') {
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+        exclude group: 'ch.qos.logback', module: 'logback-classic'
+    }
+    compile('io.confluent:kafka-avro-serializer:3.3.1'){
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+        exclude group: 'ch.qos.logback', module: 'logback-classic'
+    }
+
+    compile('io.confluent:kafka-schema-registry:3.3.1'){
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+        exclude group: 'ch.qos.logback', module: 'logback-classic'
+    }
+
+    compile('io.confluent:kafka-streams-avro-serde:3.3.1'){
+        exclude group: 'org.slf4j', module: 'slf4j-api'
+        exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+        exclude group: 'ch.qos.logback', module: 'logback-classic'
+    }
+
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}

@@ -1,0 +1,12 @@
+{
+     "type": "record",
+     "namespace": "com.fersanp.gleidson.kafkaexample.model",
+     "name": "Person",
+     "version": "1",
+     "fields": [
+       { "name": "person_id", "type": "string", "doc": "Id of the person filed" },
+       { "name": "first_name", "type": "string", "doc": "First Name" },
+       { "name": "last_name", "type": "string", "doc": "Last Name" },
+       { "name": "email", "type": "string", "doc": "Email of person" }
+     ]
+}
